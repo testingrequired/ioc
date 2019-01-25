@@ -1,10 +1,47 @@
 # Ject
 
+A simple dependency injection implementation.
+
+## Installation
+
+```bash
+$ npm i @testingrequired/ject
+```
+
+## API
+
+### component
+
+Register a class as an injectable component.
+
+```javascript
+import { component } from "@testingrequired/ject";
+
+@component
+class Foo {}
+```
+
+#### Initialization
+
+Components are initialized once and shared.
+
+### inject(Class)
+
+Register a class as an injectable component.
+
+```javascript
+import { inject } from "@testingrequired/ject";
+
+class Bar {
+  @inject(Foo) foo;
+}
+```
+
 ## Example
 
 ```javascript
 // database.js
-import { component } from "ject";
+import { component } from "@testingrequired/ject";
 
 @component
 class Database {
@@ -12,7 +49,7 @@ class Database {
 }
 
 // logger.js
-import { component } from "ject";
+import { component } from "@testingrequired/ject";
 
 @component
 class Logger {
@@ -20,7 +57,7 @@ class Logger {
 }
 
 // config.js
-import { component } from "ject";
+import { component } from "@testingrequired/ject";
 
 @component
 class Config {
@@ -30,7 +67,7 @@ class Config {
 }
 
 // app.js
-import { inject } from "ject";
+import { inject } from "@testingrequired/ject";
 import Database from "./database";
 import Logger from "./logger";
 import Config from "./config";
