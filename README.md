@@ -4,16 +4,25 @@
 
 ```javascript
 // database.js
+import { component } from "ject";
+
+@component
 class Database {
   // ... implementation
 }
 
 // logger.js
+import { component } from "ject";
+
+@component
 class Logger {
   // ... implementation
 }
 
 // config.js
+import { component } from "ject";
+
+@component
 class Config {
   get value() {
     return import("./config.json");
