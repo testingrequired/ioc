@@ -1,20 +1,17 @@
-import { component, inject } from ".";
+import { inject } from ".";
 
-@component
 class Greeting {
   get value() {
     return "Hello";
   }
 }
 
-@component
 class Name {
   get value() {
     return "World";
   }
 }
 
-@component
 class Message {
   @inject(Greeting) greeting;
   @inject(Name) name;

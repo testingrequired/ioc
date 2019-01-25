@@ -1,7 +1,5 @@
 const container = new Map();
 
-export const component = descriptor => descriptor;
-
 export const inject = Component => descriptor => {
   const initializer = () => {
     if (container.has(Component)) return container.get(Component);
@@ -16,5 +14,3 @@ export const inject = Component => descriptor => {
 
   return { ...descriptor, initializer };
 };
-
-export const componentValue = new Symbol();
