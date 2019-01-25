@@ -1,35 +1,34 @@
 import { component, inject } from ".";
 
 @component
-class Config {
-  greeting = "Hello";
-  name = "World!!";
-}
-
-@component
 class Greeting {
-  @inject(Config) config;
-
   get value() {
-    return this.config.greeting;
+    return "Hello";
   }
 }
 
 @component
 class Name {
-  @inject(Config) config;
+  get value() {
+    return "World";
+  }
+}
+
+@component
+class Message {
+  @inject(Greeting) greeting;
+  @inject(Name) name;
 
   get value() {
-    return this.config.name;
+    return `${this.greeting}, ${this.name}`;
   }
 }
 
 class App {
-  @inject(Greeting) greeting;
-  @inject(Name) name;
+  @inject(Message) message;
 
   greet() {
-    console.log(`${this.greeting.value}, ${this.name.value}`);
+    console.log(this.message);
   }
 }
 
