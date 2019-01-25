@@ -7,9 +7,14 @@ export const inject = Component => descriptor => {
     if (container.has(Component)) return container.get(Component);
 
     const component = new Component();
-    container.set(Component, component);
-    return component;
+
+    const componentValue = component.value ? component.value : component;
+
+    container.set(Component, componentValue);
+    return componentValue;
   };
 
   return { ...descriptor, initializer };
 };
+
+export const componentValue = new Symbol();
