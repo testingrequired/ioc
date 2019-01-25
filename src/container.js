@@ -7,7 +7,14 @@ export const component = descriptor => {
 };
 
 export const inject = Component => descriptor => {
-  const initializer = () => new Component();
+  const initializer = () => {
+    if (container.has(Component)) return container.get(Component);
+
+    const component = new Component();
+    container.set(Component, component);
+    return component;
+  };
+
   const newDescriptor = { ...descriptor, initializer };
   return newDescriptor;
 };
