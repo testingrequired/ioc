@@ -1,10 +1,6 @@
 const container = new Map();
 
-export const component = descriptor => {
-  const { kind, elements } = descriptor;
-  const newDescriptor = { kind, elements };
-  return newDescriptor;
-};
+export const component = descriptor => descriptor;
 
 export const inject = Component => descriptor => {
   const initializer = () => {
@@ -15,6 +11,5 @@ export const inject = Component => descriptor => {
     return component;
   };
 
-  const newDescriptor = { ...descriptor, initializer };
-  return newDescriptor;
+  return { ...descriptor, initializer };
 };
