@@ -4,7 +4,7 @@ export default [
   {
     input: "src/index.js",
     output: {
-      file: "dist/index.js",
+      file: "dist/ject.js",
       format: "cjs",
       sourcemap: "inline"
     },
@@ -15,7 +15,7 @@ export default [
     ]
   },
   {
-    input: "src/example.js",
+    input: "example.js",
     output: {
       file: "dist/example.js",
       format: "cjs"

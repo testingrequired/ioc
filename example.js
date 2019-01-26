@@ -1,4 +1,4 @@
-import { inject, component } from ".";
+import { inject, component } from "./src/index";
 
 @component
 class RandomNumbers {
