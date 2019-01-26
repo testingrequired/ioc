@@ -1,22 +1,23 @@
 const container = new Map();
 
 export const component = descriptor => {
-  const finisher = Component => {
-    const component = new Component();
-
-    const componentValue = component.value ? component.value : component;
-
-    container.set(Component, componentValue);
+  return {
+    ...descriptor,
+    finisher: Component => {
+      container.set(Component, getComponentOrValue(new Component()));
+    }
   };
-
-  return { ...descriptor, finisher };
 };
 
 export const inject = Component => descriptor => {
-  const initializer = () => {
-    if (container.has(Component)) return container.get(Component);
-    throw new Error(`Unknown component: ${Component.name}`);
-  };
+  const initializer = () =>
+    container.has(Component)
+      ? container.get(Component)
+      : getComponentOrValue(new Component());
 
   return { ...descriptor, initializer };
 };
+
+function getComponentOrValue(component) {
+  return component.value ? component.value : component;
+}
