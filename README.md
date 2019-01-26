@@ -37,6 +37,23 @@ class Bar {
 }
 ```
 
+### makeContainer
+
+Create a container to manage components.
+
+```javascript
+import { makeContainer } from "@testingrequired/ject";
+
+const container = makeContainer();
+
+@container.component
+class Foo {}
+
+class Bar {
+  @container.inject(Foo) foo;
+}
+```
+
 ## Example
 
 ```javascript
