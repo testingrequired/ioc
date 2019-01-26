@@ -25,9 +25,9 @@ class Foo {}
 
 Components are initialized once and shared.
 
-### inject(Class)
+### inject(Component)
 
-Register a class as an injectable component.
+Injects initialized component.
 
 ```javascript
 import { inject } from "@testingrequired/ject";
