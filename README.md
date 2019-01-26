@@ -21,6 +21,17 @@ import { component } from "@testingrequired/ject";
 class Foo {}
 ```
 
+#### component(options = {})
+
+Pass options while registering a component.
+
+```javascript
+import { component } from "@testingrequired/ject";
+
+@component({})
+class Foo {}
+```
+
 #### Initialization
 
 Components are initialized once and shared.

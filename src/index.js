@@ -4,13 +4,16 @@ export function makeContainer() {
   const instances = new Map();
   const factories = new Map();
 
-  const component = descriptor => ({
-    ...descriptor,
-    finisher: Component => {
+  const component = (optionsOrDescriptor = {}) => {
+    const finisher = Component => {
       factories.set(Component, defaultFactory(Component));
       instances.set(Component, createInstance(Component));
-    }
-  });
+    };
+
+    return isDescriptor(optionsOrDescriptor)
+      ? { ...optionsOrDescriptor, finisher }
+      : descriptor => ({ ...descriptor, finisher });
+  };
 
   const inject = Component => descriptor => ({
     ...descriptor,
@@ -19,6 +22,10 @@ export function makeContainer() {
         ? instances.get(Component)
         : createInstance(Component)
   });
+
+  function isDescriptor(obj) {
+    return obj[Symbol.toStringTag] === "Descriptor";
+  }
 
   function defaultFactory(Component) {
     return () => new Component();
