@@ -32,8 +32,12 @@ export function makeContainer() {
   }
 
   function createInstance(Component) {
-    const component = factories.get(Component).call(null);
-    return component.value ? component.value : component;
+    try {
+      const component = factories.get(Component).call(null);
+      return component.value ? component.value : component;
+    } catch (e) {
+      throw new Error(`Unknown component: ${Component.name}`);
+    }
   }
 
   return { component, inject };
