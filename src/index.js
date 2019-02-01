@@ -1,4 +1,4 @@
-export const { component, inject } = makeContainer();
+export const { component, inject, get } = makeContainer();
 
 export function makeContainer() {
   const instances = new Map();
@@ -13,6 +13,12 @@ export function makeContainer() {
     return isDescriptor(optionsOrDescriptor)
       ? { ...optionsOrDescriptor, finisher }
       : descriptor => ({ ...descriptor, finisher });
+  };
+
+  const get = Component => {
+    if (!instances.has(Component))
+      throw new Error(`Unknown component: ${Component.name}`);
+    return instances.get(Component);
   };
 
   const inject = Component => descriptor => ({
@@ -40,5 +46,5 @@ export function makeContainer() {
     }
   }
 
-  return { component, inject };
+  return { component, inject, get };
 }

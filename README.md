@@ -36,6 +36,14 @@ class Foo {}
 
 Components are initialized once and shared.
 
+### get(Component)
+
+Return instance of component.
+
+```javascript
+import { get } from "@testingrequired/ject";
+```
+
 ### inject(Component)
 
 Injects initialized component.

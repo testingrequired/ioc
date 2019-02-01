@@ -1,4 +1,4 @@
-import { inject, component } from "./src/index";
+import { inject, component, get } from "./src/index";
 
 @component
 class RandomNumbers {
@@ -31,6 +31,7 @@ class Message {
   }
 }
 
+@component
 class App {
   @inject(Message) message;
   @inject(RandomNumbers) random;
@@ -41,6 +42,6 @@ class App {
   }
 }
 
-const app = new App();
+const app = get(App);
 
 app.greet();
