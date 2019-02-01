@@ -1,10 +1,22 @@
 import { makeContainer } from "./index";
 
-test("should work", () => {
-  const { component, get } = makeContainer();
+describe("get", () => {
+  test("should return instance of registered component", () => {
+    const { component, get } = makeContainer();
 
-  @component
-  class TestComponent {}
+    @component
+    class TestComponent {}
 
-  expect(get(TestComponent)).toBeInstanceOf(TestComponent);
+    expect(get(TestComponent)).toBeInstanceOf(TestComponent);
+  });
+
+  test("should throw if component isn't registered", () => {
+    const { get } = makeContainer();
+
+    class TestComponent {}
+
+    expect(() => get(TestComponent)).toThrow(
+      "Unknown component: TestComponent"
+    );
+  });
 });
