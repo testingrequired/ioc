@@ -4,7 +4,7 @@
   "description": "A simple dependency injection implementation",
   "main": "dist/ject.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "rollup -c",
     "prepublish": "npm run build",
     "pack-preview": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
@@ -20,6 +20,8 @@
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/plugin-proposal-decorators": "^7.3.0",
     "@babel/preset-env": "^7.3.0",
+    "babel-jest": "^24.0.0",
+    "jest": "^24.0.0",
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2"
   }
