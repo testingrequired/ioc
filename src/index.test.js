@@ -45,4 +45,18 @@ describe("container", () => {
       expect(container.get(Component)).toBeInstanceOf(Component);
     });
   });
+
+  describe("inject", () => {
+    it("should work", () => {
+      @container.component
+      class Child {}
+
+      @container.component
+      class Parent {
+        @container.inject(Child) child;
+      }
+
+      expect(container.get(Parent).child).toBeInstanceOf(Child);
+    });
+  });
 });
