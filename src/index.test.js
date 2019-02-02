@@ -8,19 +8,41 @@ describe("container", () => {
   });
 
   describe("get", () => {
-    test("should return instance of registered component", () => {
-      @container.component
-      class TestComponent {}
+    class Component {}
 
-      expect(container.get(TestComponent)).toBeInstanceOf(TestComponent);
+    describe("registered component", () => {
+      beforeEach(() => {
+        container.register(Component);
+      });
+
+      it("returns instance of component", () => {
+        expect(container.get(Component)).toBeInstanceOf(Component);
+      });
     });
 
-    test("should throw if component isn't registered", () => {
-      class TestComponent {}
+    describe("unregistered component", () => {
+      it("throws an error", () => {
+        expect(() => container.get(Component)).toThrow();
+      });
+    });
+  });
 
-      expect(() => container.get(TestComponent)).toThrow(
-        "Unknown component: TestComponent"
-      );
+  describe("component", () => {
+    it("should make component available to get", () => {
+      @container.component
+      class Component {}
+
+      expect(container.get(Component)).toBeInstanceOf(Component);
+    });
+  });
+
+  describe("register", () => {
+    it("should make component available to get", () => {
+      class Component {}
+
+      container.register(Component);
+
+      expect(container.get(Component)).toBeInstanceOf(Component);
     });
   });
 });

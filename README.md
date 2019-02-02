@@ -36,6 +36,18 @@ class Foo {}
 
 Components are initialized once and shared.
 
+### register(Component)
+
+Register a class as a component. The `component` decorator uses this.
+
+```javascript
+import { register } from "@testingrequired/ject";
+
+class Foo {}
+
+register(Foo);
+```
+
 ### get(Component)
 
 Return instance of component.

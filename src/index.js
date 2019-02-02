@@ -1,14 +1,16 @@
-export const { component, inject, get } = makeContainer();
+export const { register, component, inject, get } = makeContainer();
 
 export function makeContainer() {
   const instances = new Map();
   const factories = new Map();
 
+  const register = Component => {
+    factories.set(Component, defaultFactory(Component));
+    instances.set(Component, createInstance(Component));
+  };
+
   const component = (optionsOrDescriptor = {}) => {
-    const finisher = Component => {
-      factories.set(Component, defaultFactory(Component));
-      instances.set(Component, createInstance(Component));
-    };
+    const finisher = Component => register(Component);
 
     return isDescriptor(optionsOrDescriptor)
       ? { ...optionsOrDescriptor, finisher }
@@ -46,5 +48,5 @@ export function makeContainer() {
     }
   }
 
-  return { component, inject, get };
+  return { register, component, inject, get };
 }

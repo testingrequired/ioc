@@ -1,11 +1,12 @@
-import { inject, component, get } from "./src/index";
+import { register, inject, component, get } from "./src/index";
 
-@component
 class RandomNumbers {
   get value() {
     return Math.floor(Math.random() * (10000 - 0) + 0);
   }
 }
+
+register(RandomNumbers);
 
 @component
 class Greeting {
