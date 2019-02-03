@@ -15,7 +15,7 @@ export default [
     ]
   },
   {
-    input: "example.js",
+    input: "example/index.js",
     output: {
       file: "dist/example.js",
       format: "cjs"
