@@ -12,9 +12,10 @@ export function makeContainer() {
   const component = (optionsOrDescriptor = {}) => {
     const finisher = Component => register(Component);
 
-    return isDescriptor(optionsOrDescriptor)
-      ? { ...optionsOrDescriptor, finisher }
-      : descriptor => ({ ...descriptor, finisher });
+    const descriptor = { ...optionsOrDescriptor, finisher };
+    const decorator = descriptor => ({ ...descriptor, finisher });
+
+    return isDescriptor(optionsOrDescriptor) ? descriptor : decorator;
   };
 
   const get = Component => {
