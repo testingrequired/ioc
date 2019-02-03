@@ -47,7 +47,7 @@ describe("container", () => {
   });
 
   describe("inject", () => {
-    it("should work", () => {
+    it("should provide instance of child component to parent", () => {
       @container.component
       class Child {}
 
