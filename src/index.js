@@ -34,11 +34,10 @@ export function makeContainer() {
       placement: "own",
       descriptor: {
         enumerable: true,
-        get: () => {
-          return instances.has(Component)
+        get: () =>
+          instances.has(Component)
             ? instances.get(Component)
-            : createInstance(Component);
-        }
+            : createInstance(Component)
       }
     };
   };
