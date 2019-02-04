@@ -58,5 +58,18 @@ describe("container", () => {
 
       expect(container.get(Parent).child).toBeInstanceOf(Child);
     });
+
+    it("should work when parent is defined before child", () => {
+      class Child {}
+
+      @container.component
+      class Parent {
+        @container.inject(Child) child;
+      }
+
+      container.register(Child);
+
+      expect(container.get(Parent).child).toBeInstanceOf(Child);
+    });
   });
 });

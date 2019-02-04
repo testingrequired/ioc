@@ -24,13 +24,24 @@ export function makeContainer() {
     return instances.get(Component);
   };
 
-  const inject = Component => descriptor => ({
-    ...descriptor,
-    initializer: () =>
-      instances.has(Component)
-        ? instances.get(Component)
-        : createInstance(Component)
-  });
+  const inject = Component => element => {
+    const { key, initializer } = element;
+
+    return {
+      key,
+      initializer,
+      kind: "method",
+      placement: "own",
+      descriptor: {
+        enumerable: true,
+        get: () => {
+          return instances.has(Component)
+            ? instances.get(Component)
+            : createInstance(Component);
+        }
+      }
+    };
+  };
 
   function isDescriptor(obj) {
     return obj[Symbol.toStringTag] === "Descriptor";
