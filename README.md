@@ -36,9 +36,9 @@ class Foo {}
 
 Components are initialized once and shared.
 
-### register(Component)
+### register(Component, options = {})
 
-Register a class as a component. The `component` decorator uses this.
+Register a class as a component.
 
 ```javascript
 import { register } from "@testingrequired/ject";
