@@ -4,16 +4,20 @@ export function makeContainer() {
   const instances = new Map();
   const factories = new Map();
 
-  const register = Component => {
+  const register = (Component, options = {}) => {
     factories.set(Component, defaultFactory(Component));
     instances.set(Component, createInstance(Component));
   };
 
   const component = (optionsOrDescriptor = {}) => {
-    const finisher = Component => register(Component);
+    const makeFinisher = options => Component => register(Component, options);
 
-    const descriptor = { ...optionsOrDescriptor, finisher };
-    const decorator = descriptor => ({ ...descriptor, finisher });
+    const descriptor = { ...optionsOrDescriptor, finisher: makeFinisher() };
+
+    const decorator = descriptor => ({
+      ...descriptor,
+      finisher: makeFinisher(optionsOrDescriptor)
+    });
 
     return isDescriptor(optionsOrDescriptor) ? descriptor : decorator;
   };
