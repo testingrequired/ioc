@@ -5,7 +5,8 @@ export function makeContainer() {
   const factories = new Map();
 
   const register = (Component, options = {}) => {
-    factories.set(Component, defaultFactory(Component));
+    debugger;
+    factories.set(Component, options.factory || defaultFactory(Component));
     instances.set(Component, createInstance(Component));
   };
 
