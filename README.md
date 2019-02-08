@@ -85,6 +85,31 @@ class Bar {
 }
 ```
 
+## Testing
+
+A container's register function can be passed a custom factory even after dependency resolution. This factory can return a mock/spy/stub.
+
+```javascript
+import { makeContainer } from "@testingrequired/ject";
+
+const container = makeContainer();
+
+@container.component
+class Child {}
+
+class Parent {
+  @container.inject(Child) child;
+}
+
+class Sibling {}
+
+container.register(Child, { factory: () => new Sibling() });
+
+const parent = containter.get(Parent);
+
+parent.child instanceof Sibling === true;
+```
+
 ## Example
 
 See the [working example](example/README.md)
