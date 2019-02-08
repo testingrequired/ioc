@@ -50,7 +50,7 @@ describe("container", () => {
 
       class OtherComponent {}
 
-      container.register(Component, { factory: () => new OtherComponent() });
+      container.register(Component, () => new OtherComponent());
 
       expect(container.get(Component)).toBeInstanceOf(OtherComponent);
     });
@@ -97,7 +97,7 @@ describe("container", () => {
 
       class Sibling {}
 
-      container.register(Child, { factory: () => new Sibling() });
+      container.register(Child, () => new Sibling());
 
       expect(container.get(Parent).child).toBeInstanceOf(Sibling);
     });

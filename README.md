@@ -36,7 +36,7 @@ class Foo {}
 
 Components are initialized once and shared.
 
-### register(Component, options = {})
+### register(Component, [factory, [options = {}]])
 
 Register a class as a component.
 
@@ -103,7 +103,7 @@ class Parent {
 
 class Sibling {}
 
-container.register(Child, { factory: () => new Sibling() });
+container.register(Child, () => new Sibling());
 
 const parent = containter.get(Parent);
 
