@@ -10,7 +10,7 @@ $ npm i @testingrequired/ioc
 
 ## API
 
-### register(Component, [factory, [options = {}]])
+### register(componentKey, [factory, [options = {}]])
 
 Register a class as a component.
 
@@ -22,9 +22,17 @@ class Foo {}
 register(Foo);
 ```
 
-#### Options
+#### component
 
-##### Lifetime
+The class, string or symbol used to identify the component.
+
+#### factory
+
+Function to be called when creating instance of component. This defaults to calling `new` on component.
+
+#### options
+
+##### lifetime
 
 There are two lifetime options: `session` (one instance for every resolve) & `instance` (new instance on each resolve).
 
@@ -40,7 +48,7 @@ class NewEveryTime {}
 register(NewEveryTime, null, { lifetime: instance });
 ```
 
-### resolve(Component)
+### resolve(componentKey)
 
 Return instance of component.
 
@@ -100,7 +108,7 @@ class NewEveryTime {}
 class NewEveryTime {}
 ```
 
-### inject(Component)
+### inject(componentKey)
 
 Injects initialized component.
 

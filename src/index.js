@@ -9,10 +9,10 @@ export function makeContainer() {
   const factories = new Map();
   const options = new Map();
 
-  const register = (Component, factory, opts) => {
-    factories.set(Component, factory || defaultFactory(Component));
-    instances.set(Component, createInstance(Component));
-    options.set(Component, opts);
+  const register = (componentKey, factory, opts) => {
+    factories.set(componentKey, factory || defaultFactory(componentKey));
+    instances.set(componentKey, createInstance(componentKey));
+    options.set(componentKey, opts);
   };
 
   const component = (optionsOrDescriptor = {}) => {
@@ -44,22 +44,22 @@ export function makeContainer() {
   component.session = desc => component({ lifetime: session })(desc);
   component.instance = desc => component({ lifetime: instance })(desc);
 
-  const resolve = Component => {
-    const opts = options.get(Component) || { lifetime: session };
+  const resolve = componentKey => {
+    const opts = options.get(componentKey) || { lifetime: session };
 
     switch (opts.lifetime) {
       case session:
-        return instances.has(Component)
-          ? instances.get(Component)
-          : createInstance(Component);
+        return instances.has(componentKey)
+          ? instances.get(componentKey)
+          : createInstance(componentKey);
       case instance:
-        return createInstance(Component);
+        return createInstance(componentKey);
       default:
         throw new Error(`Invalid lifetime option: ${opts.lifetime}`);
     }
   };
 
-  const inject = Component => element => {
+  const inject = componentKey => element => {
     const { kind, key, initializer } = element;
 
     if (kind !== "field") throw new Error("Inject can only be used on fields");
@@ -71,7 +71,7 @@ export function makeContainer() {
       placement: "own",
       descriptor: {
         enumerable: true,
-        get: () => resolve(Component)
+        get: () => resolve(componentKey)
       }
     };
   };
@@ -84,12 +84,12 @@ export function makeContainer() {
     return () => new Component();
   }
 
-  function createInstance(Component) {
+  function createInstance(componentKey) {
     try {
-      const component = factories.get(Component).call(null);
+      const component = factories.get(componentKey).call(null);
       return component.value ? component.value : component;
     } catch (e) {
-      throw new Error(`Error when creating instance: ${Component.name}\n${e}`);
+      throw new Error(`Error when creating instance: ${componentKey}\n${e}`);
     }
   }
 
