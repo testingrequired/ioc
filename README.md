@@ -8,6 +8,61 @@ A simple dependency injection implementation.
 $ npm i @testingrequired/ioc
 ```
 
+## Getting Started
+
+### Components
+
+Define components with the `component` decorator.
+
+#### Example
+
+```javascript
+import { component, register } from "@testingrequired/ioc";
+
+@component
+class Component {}
+```
+
+#### Register Example
+
+Components can also be defined using the `register` function for more control.
+
+```javascript
+import { component, register, instance } from "@testingrequired/ioc";
+
+class RandomEachTime {}
+
+register(
+  RandomEachTime,
+  () => {
+    const component = new RandomEachTime();
+    component.value = Math.floor(Math.random() * (10000 - 0) + 0);
+    return component;
+  },
+  { lifetime: instance }
+);
+```
+
+### Dependencies
+
+The `inject` function defines a dependency to a component.
+
+```javascript
+import { component, inject, resolve } from "@testingrequired/ioc";
+
+@component
+class Child {}
+
+@component
+class Parent {
+  @inject(Child) child;
+}
+
+const parent = resolve(Parent);
+
+parent.child instanceof Child === true;
+```
+
 ## API
 
 ### register(componentKey, [factory, [options = {}]])
