@@ -92,6 +92,42 @@ const parent = containter.resolve(Parent);
 parent.child instanceof Sibling === true;
 ```
 
+## Development
+
+### build
+
+Build project in to `dist`
+
+```bash
+$ npm run build
+```
+
+#### watch
+
+Build project when files change.
+
+```bash
+$ npm run build -- -w
+```
+
+### test
+
+Run tests
+
+```bash
+npm run test
+```
+
+### example
+
+Run example app.
+
+This will use current build in `dist`.
+
+```bash
+$ npm run example
+```
+
 ## API
 
 ### register(componentKey, [factory, [options = {}]])
