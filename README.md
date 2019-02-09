@@ -10,6 +10,46 @@ $ npm i @testingrequired/ioc
 
 ## API
 
+### register(Component, [factory, [options = {}]])
+
+Register a class as a component.
+
+```javascript
+import { register } from "@testingrequired/ioc";
+
+class Foo {}
+
+register(Foo);
+```
+
+#### Options
+
+##### Lifetime
+
+There are two lifetime options: `session` (one instance for every resolve) & `instance` (new instance on each resolve).
+
+```javascript
+import { register, session, instance } from "@testingrequired/ioc";
+
+class Singleton {}
+
+register(Singleton, null, { lifetime: session });
+
+class NewEveryTime {}
+
+register(NewEveryTime, null, { lifetime: instance });
+```
+
+### resolve(Component)
+
+Return instance of component.
+
+```javascript
+import { resolve } from "@testingrequired/ioc";
+
+const foo = resolve(Foo);
+```
+
 ### component
 
 Register a class as an injectable component.
@@ -32,30 +72,32 @@ import { component } from "@testingrequired/ioc";
 class Foo {}
 ```
 
-#### Initialization
+##### Options
 
-Components are initialized once and shared.
+###### Lifetime
 
-### register(Component, [factory, [options = {}]])
-
-Register a class as a component.
+There are two lifetime options: `session` (one instance for every resolve) & `instance` (new instance on each resolve).
 
 ```javascript
-import { register } from "@testingrequired/ioc";
+import { component, session, instance } from "@testingrequired/ioc";
 
-class Foo {}
+@component({ lifetime: session })
+class Singleton {}
 
-register(Foo);
-```
+// same as:
 
-### resolve(Component)
+@component.session
+class Singleton {}
 
-Return instance of component.
+// ---
 
-```javascript
-import { resolve } from "@testingrequired/ioc";
+@component({ lifetime: instance })
+class NewEveryTime {}
 
-const foo = resolve(Foo);
+// same as:
+
+@component.instance
+class NewEveryTime {}
 ```
 
 ### inject(Component)

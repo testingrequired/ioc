@@ -18,6 +18,36 @@ describe("container", () => {
       it("returns instance of component", () => {
         expect(container.resolve(Component)).toBeInstanceOf(Component);
       });
+
+      describe("lifetime", () => {
+        describe("session", () => {
+          it("should resolve same instance each time", () => {
+            @container.component
+            class Component {}
+
+            const component = container.resolve(Component);
+            const component2 = container.resolve(Component);
+
+            expect(component).toBeInstanceOf(Component);
+            expect(component2).toBeInstanceOf(Component);
+            expect(component2).toBe(component);
+          });
+        });
+
+        describe("instance", () => {
+          it("should resolve same instance each time", () => {
+            @container.component.instance
+            class Component {}
+
+            const component = container.resolve(Component);
+            const component2 = container.resolve(Component);
+
+            expect(component).toBeInstanceOf(Component);
+            expect(component2).toBeInstanceOf(Component);
+            expect(component2).not.toBe(component);
+          });
+        });
+      });
     });
 
     describe("unregistered component", () => {
