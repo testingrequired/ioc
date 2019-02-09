@@ -28,6 +28,22 @@ describe("container", () => {
   });
 
   describe("component", () => {
+    it("should throw if not used on class", () => {
+      expect(() => {
+        class Component {
+          @container.component child;
+        }
+      }).toThrow("component can only be used on classes");
+    });
+
+    it("should throw if not used on class with options", () => {
+      expect(() => {
+        class Component {
+          @container.component() child;
+        }
+      }).toThrow("component can only be used on classes");
+    });
+
     it("should make component available to resolve", () => {
       @container.component
       class Component {}
@@ -57,6 +73,13 @@ describe("container", () => {
   });
 
   describe("inject", () => {
+    it("should throw if not used on fields", () => {
+      expect(() => {
+        @container.inject()
+        class Child {}
+      }).toThrow("Inject can only be used on fields");
+    });
+
     it("should provide instance of child component to parent", () => {
       @container.component
       class Child {}

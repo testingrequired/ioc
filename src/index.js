@@ -14,12 +14,23 @@ export function makeContainer() {
 
     const descriptor = { ...optionsOrDescriptor, finisher: makeFinisher() };
 
-    const decorator = descriptor => ({
-      ...descriptor,
-      finisher: makeFinisher(optionsOrDescriptor)
-    });
+    const decorator = descriptor => {
+      if (descriptor.kind !== "class")
+        throw new Error("component can only be used on classes");
 
-    return isDescriptor(optionsOrDescriptor) ? descriptor : decorator;
+      return {
+        ...descriptor,
+        finisher: makeFinisher(optionsOrDescriptor)
+      };
+    };
+
+    if (isDescriptor(optionsOrDescriptor)) {
+      if (optionsOrDescriptor.kind !== "class")
+        throw new Error("component can only be used on classes");
+      return descriptor;
+    } else {
+      return decorator;
+    }
   };
 
   const resolve = Component => {
@@ -29,7 +40,9 @@ export function makeContainer() {
   };
 
   const inject = Component => element => {
-    const { key, initializer } = element;
+    const { kind, key, initializer } = element;
+
+    if (kind !== "field") throw new Error("Inject can only be used on fields");
 
     return {
       key,
