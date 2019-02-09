@@ -107,7 +107,7 @@ class Sibling {}
 
 container.register(Child, () => new Sibling());
 
-const parent = containter.get(Parent);
+const parent = containter.resolve(Parent);
 
 parent.child instanceof Sibling === true;
 ```
