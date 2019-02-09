@@ -1,4 +1,4 @@
-export const { register, component, inject, get } = makeContainer();
+export const { register, component, inject, resolve } = makeContainer();
 
 export function makeContainer() {
   const instances = new Map();
@@ -22,7 +22,7 @@ export function makeContainer() {
     return isDescriptor(optionsOrDescriptor) ? descriptor : decorator;
   };
 
-  const get = Component => {
+  const resolve = Component => {
     if (!instances.has(Component))
       throw new Error(`Unknown component: ${Component.name}`);
     return instances.get(Component);
@@ -63,5 +63,5 @@ export function makeContainer() {
     }
   }
 
-  return { register, component, inject, get };
+  return { register, component, inject, resolve };
 }

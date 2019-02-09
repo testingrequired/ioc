@@ -1,4 +1,4 @@
-import { get, register } from "../src/index";
+import { resolve, register } from "../src/index";
 import Name from "./Name";
 import App from "./App";
 
@@ -8,8 +8,8 @@ class NewName {
   }
 }
 
-register(Name, { factory: () => new NewName() });
+register(Name, () => new NewName());
 
-const app = get(App);
+const app = resolve(App);
 
 app.greet();

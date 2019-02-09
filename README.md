@@ -48,12 +48,14 @@ class Foo {}
 register(Foo);
 ```
 
-### get(Component)
+### resolve(Component)
 
 Return instance of component.
 
 ```javascript
-import { get } from "@testingrequired/ject";
+import { resolve } from "@testingrequired/ject";
+
+const foo = resolve(Foo);
 ```
 
 ### inject(Component)
