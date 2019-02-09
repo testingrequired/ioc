@@ -1,8 +1,8 @@
 {
-  "name": "@testingrequired/ject",
+  "name": "@testingrequired/ioc",
   "version": "0.1.0",
   "description": "A simple dependency injection implementation",
-  "main": "dist/ject.js",
+  "main": "dist/ioc.js",
   "scripts": {
     "test": "jest --runInBand",
     "build": "rollup -c",
@@ -11,7 +11,7 @@
     "example": "node dist/example.js"
   },
   "files": [
-    "/dist/ject.js"
+    "/dist/ioc.js"
   ],
   "author": "Kylee Tilley <kylee@testingrequired.com>",
   "license": "MIT",
