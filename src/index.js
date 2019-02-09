@@ -34,9 +34,9 @@ export function makeContainer() {
   };
 
   const resolve = Component => {
-    if (!instances.has(Component))
-      throw new Error(`Unknown component: ${Component.name}`);
-    return instances.get(Component);
+    return instances.has(Component)
+      ? instances.get(Component)
+      : createInstance(Component);
   };
 
   const inject = Component => element => {
@@ -51,10 +51,7 @@ export function makeContainer() {
       placement: "own",
       descriptor: {
         enumerable: true,
-        get: () =>
-          instances.has(Component)
-            ? instances.get(Component)
-            : createInstance(Component)
+        get: () => resolve(Component)
       }
     };
   };
