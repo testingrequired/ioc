@@ -63,6 +63,35 @@ const parent = resolve(Parent);
 parent.child instanceof Child === true;
 ```
 
+## Example
+
+See the [working example](example/README.md)
+
+## Testing
+
+A container's register function can be passed a custom factory even after dependency resolution. This factory can return a mock/spy/stub.
+
+```javascript
+import { makeContainer } from "@testingrequired/ioc";
+
+const container = makeContainer();
+
+@container.component
+class Child {}
+
+class Parent {
+  @container.inject(Child) child;
+}
+
+class Sibling {}
+
+container.register(Child, () => new Sibling());
+
+const parent = containter.resolve(Parent);
+
+parent.child instanceof Sibling === true;
+```
+
 ## API
 
 ### register(componentKey, [factory, [options = {}]])
@@ -191,32 +220,3 @@ class Bar {
   @container.inject(Foo) foo;
 }
 ```
-
-## Testing
-
-A container's register function can be passed a custom factory even after dependency resolution. This factory can return a mock/spy/stub.
-
-```javascript
-import { makeContainer } from "@testingrequired/ioc";
-
-const container = makeContainer();
-
-@container.component
-class Child {}
-
-class Parent {
-  @container.inject(Child) child;
-}
-
-class Sibling {}
-
-container.register(Child, () => new Sibling());
-
-const parent = containter.resolve(Parent);
-
-parent.child instanceof Sibling === true;
-```
-
-## Example
-
-See the [working example](example/README.md)
