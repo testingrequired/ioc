@@ -4,7 +4,7 @@ export default [
   {
     input: "src/index.js",
     output: {
-      file: "dist/ject.js",
+      file: "dist/ioc.js",
       format: "cjs",
       sourcemap: "inline"
     },

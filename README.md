@@ -1,11 +1,11 @@
-# Ject
+# @testingrequired/ioc
 
 A simple dependency injection implementation.
 
 ## Installation
 
 ```bash
-$ npm i @testingrequired/ject
+$ npm i @testingrequired/ioc
 ```
 
 ## API
@@ -15,7 +15,7 @@ $ npm i @testingrequired/ject
 Register a class as an injectable component.
 
 ```javascript
-import { component } from "@testingrequired/ject";
+import { component } from "@testingrequired/ioc";
 
 @component
 class Foo {}
@@ -26,7 +26,7 @@ class Foo {}
 Pass options while registering a component.
 
 ```javascript
-import { component } from "@testingrequired/ject";
+import { component } from "@testingrequired/ioc";
 
 @component({})
 class Foo {}
@@ -41,7 +41,7 @@ Components are initialized once and shared.
 Register a class as a component.
 
 ```javascript
-import { register } from "@testingrequired/ject";
+import { register } from "@testingrequired/ioc";
 
 class Foo {}
 
@@ -53,7 +53,7 @@ register(Foo);
 Return instance of component.
 
 ```javascript
-import { resolve } from "@testingrequired/ject";
+import { resolve } from "@testingrequired/ioc";
 
 const foo = resolve(Foo);
 ```
@@ -63,7 +63,7 @@ const foo = resolve(Foo);
 Injects initialized component.
 
 ```javascript
-import { inject } from "@testingrequired/ject";
+import { inject } from "@testingrequired/ioc";
 
 class Bar {
   @inject(Foo) foo;
@@ -75,7 +75,7 @@ class Bar {
 Create a container to manage components.
 
 ```javascript
-import { makeContainer } from "@testingrequired/ject";
+import { makeContainer } from "@testingrequired/ioc";
 
 const container = makeContainer();
 
@@ -92,7 +92,7 @@ class Bar {
 A container's register function can be passed a custom factory even after dependency resolution. This factory can return a mock/spy/stub.
 
 ```javascript
-import { makeContainer } from "@testingrequired/ject";
+import { makeContainer } from "@testingrequired/ioc";
 
 const container = makeContainer();
 
