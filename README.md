@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/testingrequired/ioc.svg?branch=master)](https://travis-ci.org/testingrequired/ioc)
+
 # @testingrequired/ioc
 
 A simple dependency injection implementation.
