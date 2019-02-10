@@ -4,6 +4,10 @@
 
 A simple dependency injection implementation.
 
+## Notice
+
+This is not intended for production use.
+
 ## Installation
 
 ```bash
