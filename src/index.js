@@ -13,7 +13,12 @@ export function makeContainer() {
     factories.set(componentKey, factory || defaultFactory(componentKey));
     instances.set(componentKey, createInstance(componentKey));
     options.set(componentKey, opts);
+
+    return componentKey;
   };
+
+  register.fn = (componentKeys, fn) =>
+    register(fn, () => fn.bind(null, ...componentKeys.map(resolve)));
 
   const component = (optionsOrDescriptor = {}) => {
     const makeFinisher = options => Component =>

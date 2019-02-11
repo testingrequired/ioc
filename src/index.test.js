@@ -100,6 +100,22 @@ describe("container", () => {
 
       expect(container.resolve(Component)).toBeInstanceOf(OtherComponent);
     });
+
+    describe("fn", () => {
+      it("should register a function with components", () => {
+        @container.component
+        class Component {}
+
+        const componentFn = container.register.fn(
+          [Component],
+          component => component
+        );
+
+        expect(container.resolve(componentFn).call(null)).toBeInstanceOf(
+          Component
+        );
+      });
+    });
   });
 
   describe("inject", () => {

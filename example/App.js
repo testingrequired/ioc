@@ -13,7 +13,7 @@ export default class App {
 
   greet() {
     console.log(
-      this.message,
+      this.message(),
       this.random,
       this.random2,
       this.randomNumber,

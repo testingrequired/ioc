@@ -174,6 +174,25 @@ class NewEveryTime {}
 register(NewEveryTime, null, { lifetime: instance });
 ```
 
+### register.fn(componentKey, fn)
+
+Register a functional component.
+
+```javascript
+import { component, register } from "@testingrequired/ioc";
+
+@component
+class ComponentA {}
+
+@component
+class ComponentB {}
+
+export default register.fn(
+  [ComponentA, ComponentB],
+  (componentA, componentB) => /* ...implementation */
+);
+```
+
 ### resolve(componentKey)
 
 Return instance of component.
